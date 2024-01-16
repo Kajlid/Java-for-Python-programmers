@@ -40,7 +40,7 @@ public class kth_javap_basen {
 
     }
 
-    public static String javap_basen(Integer n, Integer m, Integer a, Integer b) {
+    private static String javap_basen(Integer n, Integer m, Integer a, Integer b) {
         int c = a * b;
         return Integer.toString(c, m);
 
