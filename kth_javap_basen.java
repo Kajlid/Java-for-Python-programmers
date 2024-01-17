@@ -48,3 +48,5 @@ public class kth_javap_basen {
     }
     
 }
+
+// klarar inte testfall 2
