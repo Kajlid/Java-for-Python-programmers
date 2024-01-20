@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
+import java.math.BigInteger;
 
 public class kth_javap_basen {
     /*  
@@ -25,39 +26,26 @@ public class kth_javap_basen {
 
         Scanner scanObj = new Scanner(System.in);
 
+        System.out.println("N och M");
         int N = scanObj.nextInt();
         int M = scanObj.nextInt();
         scanObj.nextLine();
-        int A = Integer.parseInt(scanObj.nextLine().trim(), N);
-        int B = Integer.parseInt(scanObj.nextLine().trim(), N);
+        System.out.println("A");
+        BigInteger A = new BigInteger(scanObj.next().trim(), N);
+        System.out.println("B");
+        BigInteger B = new BigInteger(scanObj.next().trim(), N);
         scanObj.close();
+
         String result = javap_basen(N, M, A, B);
         System.out.println(result);
 
 
     }
 
-    /* 
-    private static int hanteraText(String numString, int n) {
-        int num = 0;
-        for (int i = 0; i < numString.length(); i++) {
+    private static String javap_basen(Integer n, Integer m, BigInteger a, BigInteger b) {
+        BigInteger c = a.multiply(b);
 
-            // Character.digit ger ett numeriskt värde till en char i en viss bas (radix)
-
-            int characterValue = Character.getNumericValue(numString.charAt(i));
-
-            num = num * n + characterValue;
-
-        }
-
-        return num;
-
-    } */
-
-    private static String javap_basen(Integer n, Integer m, Integer a, Integer b) {
-        int c = a * b;
-
-        return Integer.toString(c, m).toUpperCase();
+        return c.toString(m).toUpperCase();
 
 
     }
