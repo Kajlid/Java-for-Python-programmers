@@ -24,29 +24,42 @@ public class kth_javap_basen {
     public static void main (String[] args) {
 
         Scanner scanObj = new Scanner(System.in);
-        System.out.println("Skriv ett tal N:");
-        int N = Integer.parseInt(scanObj.nextLine().trim());
-        System.out.println("Skriv ett tal M");
-        int M = Integer.parseInt(scanObj.nextLine().trim());
-        System.out.println("Skriv ett tal A:");
+
+        int N = scanObj.nextInt();
+        int M = scanObj.nextInt();
+        scanObj.nextLine();
         int A = Integer.parseInt(scanObj.nextLine().trim(), N);
-        System.out.println("Skriv ett tal B:");
         int B = Integer.parseInt(scanObj.nextLine().trim(), N);
         scanObj.close();
-
         String result = javap_basen(N, M, A, B);
         System.out.println(result);
 
 
     }
 
+    /* 
+    private static int hanteraText(String numString, int n) {
+        int num = 0;
+        for (int i = 0; i < numString.length(); i++) {
+
+            // Character.digit ger ett numeriskt värde till en char i en viss bas (radix)
+
+            int characterValue = Character.getNumericValue(numString.charAt(i));
+
+            num = num * n + characterValue;
+
+        }
+
+        return num;
+
+    } */
+
     private static String javap_basen(Integer n, Integer m, Integer a, Integer b) {
         int c = a * b;
-        return Integer.toString(c, m);
+
+        return Integer.toString(c, m).toUpperCase();
 
 
     }
     
 }
-
-// klarar inte testfall 2
