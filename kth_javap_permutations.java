@@ -12,27 +12,35 @@ public class kth_javap_permutations {
     }
 
     private static Set<String> permutations(String s) {
-        Set<String> permutationSet = new HashSet<String>();
+        Set<String> permutationSet = new HashSet<String>();      // new set
 
         if (s.length() == 0) {
             permutationSet.add("");
             return permutationSet;
         }
-        char firstChar = s.charAt(0);    // sparar första tecknet
+        char firstChar = s.charAt(0); // sparar första tecknet
         String remaining = s.substring(1);
+
         Set<String> words = permutations(remaining);  // gör funktionen rekursiv, med en ny bokstav som första
+        System.out.println("Words:" + words);
+    
 
         for (String newStr : words) {
+            System.out.println("newStr:" + newStr);
             for (int i = 0;i<=newStr.length();i++){
-                permutationSet.add(placeraTecken(i, newStr, firstChar));
+                permutationSet.add(placeraTecken(newStr, i, firstChar));
             }
         }
+
+       
 
         return permutationSet;
 
     }
 
-    private static String placeraTecken(int i, String str, char f) {
+    // private static String placeraTecken(int i, String str, char f)
+
+    private static String placeraTecken(String str, int i, char f) {
         String begin = str.substring(0, i);
         String end = str.substring(i);
         return begin + f + end;
