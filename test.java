@@ -1,9 +1,8 @@
 import java.util.Set;
 import java.util.Scanner;
-// import java.util.HashSet
 import java.util.TreeSet;
 
-public class kth_javap_permutations {
+public class test {
     public static void main(String[] args) {
         Scanner scanObj = new Scanner(System.in);
         String S = scanObj.nextLine();
@@ -41,7 +40,19 @@ public class kth_javap_permutations {
         return permutationSet;
     }
 
-    
+    // private static String placeraTecken(int i, String str, char f)
+
+    /* 
+
+        private static String placeraTecken(String str, int i, char f) {
+        String begin = str.substring(0, i);
+        String end = str.substring(i);
+        return begin + f + end;
+    }
+
+    */
+
+    /* 
     private static String setToString(Set<String> temp) {
         StringBuilder out = new StringBuilder();
         for (String str : temp) {
@@ -51,4 +62,15 @@ public class kth_javap_permutations {
         return out.toString();
     }
 
+    */
+
+    private static String setToString(Set<String> temp) {
+        String out = "";
+        for (String str : temp) {
+            out += str + "\n";
+          }
+
+        return out;
+        
+    }
 }
