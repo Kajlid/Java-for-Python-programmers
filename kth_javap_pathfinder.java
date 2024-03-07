@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.List;   // List är en collection
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
@@ -24,10 +23,34 @@ public class kth_javap_pathfinder {
 
     public static void main (String[] args) {
         // Scanner scanObj = new Scanner(System.in);
-        int M = 10;
-        int N = 10;
+        // int M = 6;
+        // int N = 6;
 
-        char[][] map = {
+        Scanner scanObj = new Scanner(System.in);  // användare skriver M, sedan mellanslag, sedan N
+
+        int M = scanObj.nextInt();
+        int N = scanObj.nextInt();
+        scanObj.nextLine(); 
+
+        char[][] map = new char[M][N];
+
+        for (int i = 0; i < M; i++) {
+            String line = scanObj.nextLine();         // användare skriver in varje entry för varje rad
+            for (int j = 0; j < N; j++) {
+                map[i][j] = line.charAt(j);
+            }
+        }
+
+        /*char[][] map = {
+            {'A', 'A', 'C', 'A', 'C', 'D'},
+            {'A', 'B', 'B', 'A', 'B', 'D'},
+            {'A', 'B', 'A', 'A', 'A', 'D'},
+            {'A', 'B', 'A', 'B', 'A', 'D'},
+            {'A', 'A', 'A', 'B', 'A', 'D'},
+            {'B', 'B', 'B', 'B', 'B', 'D'}
+        };*/
+
+        /*char[][] map = {
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
@@ -38,20 +61,24 @@ public class kth_javap_pathfinder {
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'},
             {'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K', 'K'}
-        };
+        };*/
         
-
-        List<Character> result = hittaStigar(map, M, N);
+        String result = hittaStigar(map, M, N);
         System.out.println(result);
+        // List<Character> result = hittaStigar(map, M, N);
+        // System.out.println(result.toString().replace("[", "").replace("]", ""));
 
     }
 
-    public static List<Character> hittaStigar(char[][] map, int m, int n) {
+    // public static List<Character> hittaStigar(char[][] map, int m, int n)
+    public static String hittaStigar(char[][] map, int m, int n) {
         boolean[][] visited_letters = new boolean[m][n];
 
         Deque<int[]> q = new LinkedList<>();
 
-        List<Character> paths = new ArrayList<>();
+        String paths = "";
+
+        // List<Character> paths = new ArrayList<>();
 
         for (int col = 0; col < n; col++) {
             if (!visited_letters[0][col]) {
@@ -79,7 +106,8 @@ public class kth_javap_pathfinder {
 
                                 // Om grannpositionen är i den sista raden, lägg till tecknet i stigen
                                 if (newRow == m - 1) {
-                                    paths.add(map[newRow][newCol]);
+                                    // paths.add(map[newRow][newCol]);
+                                    paths = Character.toString(map[newRow][newCol]);
                                 }
                             }
 
@@ -98,13 +126,14 @@ public class kth_javap_pathfinder {
 
         }
         // kolla upp, ska inte vara en lista, utan sträng
-        if (paths.isEmpty()) {
+        /*if (paths.isEmpty()) {
             paths.add('0');
         } else {
             Collections.sort(paths);
         }
         
-        return paths;
+        return paths;*/
+        return paths.isEmpty() ? "0" : paths;
 
     }
 
