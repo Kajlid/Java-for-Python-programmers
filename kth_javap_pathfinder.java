@@ -1,8 +1,11 @@
 import java.util.Scanner;
+import java.util.Set;
 import java.util.List;   // List är en collection
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class kth_javap_pathfinder {
@@ -64,8 +67,6 @@ public class kth_javap_pathfinder {
         
         String result = hittaStigar(map, M, N);
         System.out.println(result);
-        // List<Character> result = hittaStigar(map, M, N);
-        // System.out.println(result.toString().replace("[", "").replace("]", ""));
 
     }
 
@@ -75,13 +76,15 @@ public class kth_javap_pathfinder {
 
         Deque<int[]> q = new LinkedList<>();
 
-        String paths = "";
+        // String paths = "";
+        StringBuilder paths = new StringBuilder();   // test med stringBuilder
 
-        // List<Character> paths = new ArrayList<>();
+        Set<Character> characters = new HashSet<>();   // chars i alla riktningar att leta i, test
 
         for (int col = 0; col < n; col++) {
-            if (!visited_letters[0][col]) {
-                q.offerLast(new int[]{0, col});  // lägger sist i kön
+            // if (!visited_letters[0][col])
+            if (map[0][col] == map[m - 1][col]) { // kolla om högst upp = längst ned
+                q.offerLast(new int[]{0, col});  // lägger sist i kön, som att lägga på en stack
                 visited_letters[0][col] = true;
 
                 while (!q.isEmpty()) {
@@ -89,11 +92,23 @@ public class kth_javap_pathfinder {
                     int row = position[0];
                     int column = position[1];
 
+                    // Kolla om tecknet vi är på nu är utanför gränserna eller redan är besökt, hoppa då över resten av iterationen.
+                    if (row < 0 || row >= m || column < 0 || column >= n || characters.contains(map[row][column])) {
+                        continue;
+                    }
 
-                    int[] directionsRow = {-1, 1, 0, 0};  // upp, ner, stanna, stanna
-                    int[] directionsColumn = {0, 0, -1, 1};   // stanna, stanna, vänster, höger 
+                    characters.add(map[row][column]);
 
-                    for (int i = 0; i < 4; i++) {
+                    q.offerLast(new int[]{row - 1, column}); // Upp
+                    q.offerLast(new int[]{row + 1, column}); // Ner
+                    q.offerLast(new int[]{row, column - 1}); // vänster (?)
+                    q.offerLast(new int[]{row, column + 1}); // höger (?)
+
+
+                    // int[] directionsRow = {-1, 1, 0, 0};  // upp, ner, stanna, stanna
+                    // int[] directionsColumn = {0, 0, -1, 1};   // stanna, stanna, vänster, höger 
+
+                    /*for (int i = 0; i < 4; i++) {
                         int newRow = row + directionsRow[i];
                         int newCol = column + directionsColumn[i];
 
@@ -106,34 +121,50 @@ public class kth_javap_pathfinder {
                                 // Om grannpositionen är i den sista raden, lägg till tecknet i stigen
                                 if (newRow == m - 1) {
                                     // paths.add(map[newRow][newCol]);
-                                    paths = Character.toString(map[newRow][newCol]);
+                                    paths += map[newRow][newCol];
+                                    characters.add(map[newRow][newCol]);
+                                    // paths = Character.toString(map[newRow][newCol]);
                                 }
                             }
-
                             
                         }
 
-
-
-
-
+                    if (characters.size() == n) {     // n är kolumner
+                        break;
                     }
+
+
+                    }*/
+
+            
 
                 }
 
             }
 
+
         }
-        // kolla upp, ska inte vara en lista, utan sträng
-        /*if (paths.isEmpty()) {
-            paths.add('0');
+
+        Character[] sortedChars = characters.toArray(new Character[0]);
+        Arrays.sort(sortedChars);
+
+        for (Character c : sortedChars) {
+            paths.append(c);
+        }
+
+        /*if (!paths.isEmpty()) {
+            char[] chars = paths.toCharArray();
+            Arrays.sort(chars);
+            paths = new String(chars);
         } else {
-            Collections.sort(paths);
-        }
+            paths = "0";
+        }*/
         
-        return paths;*/
-        return paths.isEmpty() ? "0" : paths;
+
+        // return paths.isEmpty() ? "0" : Arrays.sort(paths.toCharArray()).toString();
+        return paths.length() == 0 ? "0" : paths.toString();
 
     }
 
 }
+
