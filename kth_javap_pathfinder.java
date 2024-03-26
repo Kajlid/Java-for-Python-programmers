@@ -22,7 +22,6 @@ public class kth_javap_pathfinder {
      */
 
     public static void main (String[] args) {
-        // Scanner scanObj = new Scanner(System.in);
         // int M = 6;
         // int N = 6;
 
