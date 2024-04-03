@@ -72,23 +72,23 @@ public class kth_javap_pathfinder {
 
     // public static List<Character> hittaStigar(char[][] map, int m, int n)
     public static String hittaStigar(char[][] map, int m, int n) {
-        boolean[][] visited_letters = new boolean[m][n];
+        boolean[][] visited_letters = new boolean[m][n];    // bool matrix
 
         Deque<int[]> q = new LinkedList<>();
 
         // String paths = "";
         StringBuilder paths = new StringBuilder();   // test med stringBuilder
 
-        Set<Character> characters = new HashSet<>();   // chars i alla riktningar att leta i, test
+        Set<Character> characters = new HashSet<>();   // chars i alla riktningar att leta i, test (current)
 
-        for (int col = 0; col < n; col++) {
+        for (int eachRow = 0; eachRow < m; eachRow++) {   
             // if (!visited_letters[0][col])
-            if (map[0][col] == map[m - 1][col]) { // kolla om högst upp = längst ned
-                q.offerLast(new int[]{0, col});  // lägger sist i kön, som att lägga på en stack
-                visited_letters[0][col] = true;
+            if (map[eachRow][0] == map[eachRow][n-1]) { // kolla om högst upp = längst ned (i samma kolumn)
+                q.offerLast(new int[]{eachRow, 0});  // lägger sist i kön, som att lägga på en stack
+                visited_letters[eachRow][0] = true;  // den är besökt
 
-                while (!q.isEmpty()) {
-                    int[] position = q.pollFirst();  // hämtar och tar bort första elementet i en deque
+                while (!q.isEmpty()) {               // så länge kön inte är tom.
+                    int[] position = q.pollFirst();  // hämtar och tar bort första elementet i stacken
                     int row = position[0];
                     int column = position[1];
 
@@ -99,51 +99,57 @@ public class kth_javap_pathfinder {
 
                     characters.add(map[row][column]);
 
-                    q.offerLast(new int[]{row - 1, column}); // Upp
-                    q.offerLast(new int[]{row + 1, column}); // Ner
-                    q.offerLast(new int[]{row, column - 1}); // vänster (?)
-                    q.offerLast(new int[]{row, column + 1}); // höger (?)
+                    q.offerLast(new int[]{row - 1, column}); // Ner
+                    q.offerLast(new int[]{row + 1, column}); // Upp
+                    q.offerLast(new int[]{row, column - 1}); // höger (?)
+                    q.offerLast(new int[]{row, column + 1}); // vänster (?)
 
 
                     // int[] directionsRow = {-1, 1, 0, 0};  // upp, ner, stanna, stanna
                     // int[] directionsColumn = {0, 0, -1, 1};   // stanna, stanna, vänster, höger 
 
-                    /*for (int i = 0; i < 4; i++) {
-                        int newRow = row + directionsRow[i];
-                        int newCol = column + directionsColumn[i];
+                }
 
-        
-                        if (newRow >= 0 && newRow < m && newCol >= 0 && newCol < n && !visited_letters[newRow][newCol] && map[newRow][newCol] == map[row][col]) {     // om både rad och kolumn är mellan 0-totalt antal rader/kolumner
-                            if(!visited_letters[newRow][newCol] && map[newRow][newCol] == map[row][col]) {
-                                q.offerLast(new int[]{newRow, newCol});  // Lägg till grannposition i kön
-                                visited_letters[newRow][newCol] = true;
+            }
 
-                                // Om grannpositionen är i den sista raden, lägg till tecknet i stigen
-                                if (newRow == m - 1) {
-                                    // paths.add(map[newRow][newCol]);
-                                    paths += map[newRow][newCol];
-                                    characters.add(map[newRow][newCol]);
-                                    // paths = Character.toString(map[newRow][newCol]);
-                                }
-                            }
-                            
-                        }
+            else {
+                visited_letters[eachRow][0] = true;  // den är besökt
+            }
 
-                    if (characters.size() == n) {     // n är kolumner
-                        break;
+
+        }
+
+        /*for (int eachCol = 0; eachCol < n; eachCol++) {
+            if (map[0][eachCol] == map[m-1][eachCol]) { // kolla om högst upp = längst ned (i samma kolumn)
+                q.offerLast(new int[]{0, eachCol});  // lägger sist i kön, som att lägga på en stack
+                visited_letters[0][eachCol] = true;  // den är besökt
+
+                while (!q.isEmpty()) {
+                    int[] position = q.pollFirst();  // hämtar och tar bort första elementet i stacken
+                    int row = position[0];
+                    int column = position[1];
+
+                    // Kolla om tecknet vi är på nu är utanför gränserna eller redan är besökt, hoppa då över resten av iterationen.
+                    if (row < 0 || row >= m || column < 0 || column >= n || characters.contains(map[row][column])) {
+                        continue;
                     }
 
+                    characters.add(map[row][column]);
 
-                    }*/
+                    q.offerLast(new int[]{row - 1, column}); // Ner
+                    q.offerLast(new int[]{row + 1, column}); // Upp
+                    q.offerLast(new int[]{row, column - 1}); // höger (?)
+                    q.offerLast(new int[]{row, column + 1}); // vänster (?)
 
-            
+
+                    // int[] directionsRow = {-1, 1, 0, 0};  // upp, ner, stanna, stanna
+                    // int[] directionsColumn = {0, 0, -1, 1};   // stanna, stanna, vänster, höger 
 
                 }
 
             }
 
-
-        }
+        }*/
 
         Character[] sortedChars = characters.toArray(new Character[0]);
         Arrays.sort(sortedChars);
