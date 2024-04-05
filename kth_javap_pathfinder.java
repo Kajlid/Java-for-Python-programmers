@@ -87,28 +87,28 @@ public class kth_javap_pathfinder {
                 q.offerLast(new int[]{eachRow, 0});  // lägger sist i kön, som att lägga på en stack
                 visited_letters[eachRow][0] = true;  // den är besökt
 
-                while (!q.isEmpty()) {               // så länge kön inte är tom.
-                    int[] position = q.pollFirst();  // hämtar och tar bort första elementet i stacken
-                    int row = position[0];
-                    int column = position[1];
+            while (!q.isEmpty()) {               // så länge kön inte är tom.
+                int[] position = q.pollFirst();  // hämtar och tar bort första elementet i stacken
+                int row = position[0];
+                int column = position[1];
 
-                    // Kolla om tecknet vi är på nu är utanför gränserna eller redan är besökt, hoppa då över resten av iterationen.
-                    if (row < 0 || row >= m || column < 0 || column >= n || characters.contains(map[row][column])) {
-                        continue;
-                    }
-
-                    characters.add(map[row][column]);
-
-                    q.offerLast(new int[]{row - 1, column}); // Ner
-                    q.offerLast(new int[]{row + 1, column}); // Upp
-                    q.offerLast(new int[]{row, column - 1}); // höger (?)
-                    q.offerLast(new int[]{row, column + 1}); // vänster (?)
-
-
-                    // int[] directionsRow = {-1, 1, 0, 0};  // upp, ner, stanna, stanna
-                    // int[] directionsColumn = {0, 0, -1, 1};   // stanna, stanna, vänster, höger 
-
+                // Kolla om tecknet vi är på nu är utanför gränserna eller redan är besökt, hoppa då över resten av iterationen.
+                if (row < 0 || row >= m || column < 0 || column >= n || characters.contains(map[row][column])) {
+                    continue;
                 }
+
+                characters.add(map[row][column]);
+
+                q.offerLast(new int[]{row - 1, column}); // Ner
+                q.offerLast(new int[]{row + 1, column}); // Upp
+                q.offerLast(new int[]{row, column - 1}); // höger (?)
+                q.offerLast(new int[]{row, column + 1}); // vänster (?)
+
+
+                // int[] directionsRow = {-1, 1, 0, 0};  // upp, ner, stanna, stanna
+                // int[] directionsColumn = {0, 0, -1, 1};   // stanna, stanna, vänster, höger 
+
+            }
 
             }
 
