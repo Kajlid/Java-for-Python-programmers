@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Kth_javap_pathfinder",
+            "request": "launch",
+            "mainClass": "Kth_javap_pathfinder",
+            "projectName": "Java-for-Python-programmers_5b1ca919"
+        },
+        {
+            "type": "java",
+            "name": "Test9",
+            "request": "launch",
+            "mainClass": "Test9",
+            "projectName": "Java-for-Python-programmers_5b1ca919"
+        },
+        {
+            "type": "java",
             "name": "Test8",
             "request": "launch",
             "mainClass": "Test8",

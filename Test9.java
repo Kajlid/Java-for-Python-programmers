@@ -1,9 +1,8 @@
 import java.util.*;
 
-public class Kth_javap_pathfinder {
-    // Fält som tillhör hela klassen, behöver vara 'static' (tillhöra klassen själv)
+public class Test9 {
     static char[][] map;
-    static int M;   
+    static int M;
     static int N;
     static boolean[][] visited;
 
@@ -28,54 +27,47 @@ public class Kth_javap_pathfinder {
     }
 
     private static String hittaStigar(char[][] map, int m, int n) {
-        Set<Character> characters = new HashSet<>();
-        // boolean[][] visited = new boolean[m][n];
+        boolean[] characters = new boolean[128];   // testar med en bool array med storlek 128 istället för hashset
 
         for (int j = 0; j < n; j++) {
-            char ch = map[0][j];    // karaktär på första raden, kolumn j
-            if (dfs(map, m, n, visited, 0, j, ch)) {
-                characters.add(ch);
-                }
-                
+            char ch = map[0][j];
+            if (!characters[ch]) {
+                dfs(m, n, 0, j, ch);
+                characters[ch] = true;
+            }
         }
 
-
-        if (characters.isEmpty()) {
-            return "0";
-        } else {
-            List<Character> sortedChars = new ArrayList<>(characters);
-            Collections.sort(sortedChars);
-            StringBuilder paths = new StringBuilder();
-            for (char c : sortedChars) {
+        StringBuilder paths = new StringBuilder();
+        for (char c = 0; c < 128; c++) {
+            if (characters[c]) {
                 paths.append(c);
             }
-            return paths.toString();
         }
+
+        return paths.toString();
     }
 
-    private static boolean dfs(char[][] map, int m, int n, boolean[][] visited, int startRow, int startCol, char targetChar) {
+    private static void dfs(int m, int n, int startRow, int startCol, char targetChar) {
         Deque<int[]> stack = new ArrayDeque<>();
         stack.push(new int[]{startRow, startCol});
-    
+
         while (!stack.isEmpty()) {
             int[] position = stack.pop();
             int r = position[0];
             int c = position[1];
-    
+
             if (r == m - 1) {
-                return true;
+                return;
             }
-    
+
             if (visited[r][c]) {
-                continue; 
+                continue;
             }
-    
+
             visited[r][c] = true;
-    
+
             int[] dr = {0, 0, -1, 1};
             int[] dc = {1, -1, 0, 0};
-            //int[] dr = {1, -1, 0, 0};
-            //int[] dc = {0, 0, -1, 1};
             for (int i = 0; i < dc.length; i++) {
                 int newRow = r + dr[i];
                 int newCol = c + dc[i];
@@ -85,8 +77,5 @@ public class Kth_javap_pathfinder {
                 }
             }
         }
-    
-        return false;
     }
-    
 }

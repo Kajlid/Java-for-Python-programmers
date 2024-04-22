@@ -48,19 +48,23 @@ public class Test8 {
     }
 
     private static boolean dfs(char[][] map, int m, int n, boolean[][] visited, int startRow, int startCol, char targetChar) {
-        Deque<Integer> stack = new ArrayDeque<>();
-        stack.push(startRow * n + startCol);
+        // Deque<Integer> stack = new ArrayDeque<>();
+        // stack.push(startRow * n + startCol);
+        Deque<int[]> stack = new LinkedList<>();
+        stack.offerLast(new int[]{m, n}); 
 
         while (!stack.isEmpty()) {
-            int position = stack.pop();
-            int r = position / n;
-            int c = position % n;
+            int[] position = stack.pop();   // ta ut senaste
+            // int r = position / n;
+            // int c = position % n;
+            int r = position[0];
+            int c = position[1];
 
-            if (r == m - 1) {
+            if (r == m - 1) {     // om sista
                 return true;
             }
 
-            if (visited[r][c]) {
+            if (visited[r][c]) {      // om redan besökt
                 continue; 
             }
 
@@ -71,9 +75,10 @@ public class Test8 {
             for (int i = 0; i < 4; i++) {
                 int newRow = r + dr[i];
                 int newCol = c + dc[i];
-                if (newRow >= 0 && newRow < m && newCol >= 0 && newCol < n
+                if (newRow >= 0 && newRow < map.length && newCol >= 0 && newCol < map[newRow].length
                         && map[newRow][newCol] == targetChar) {
-                    stack.push(newRow * n + newCol);
+                            // stack.push(newRow * n + newCol
+                            stack.offerLast(new int[]{newRow, newCol});
                 }
             }
         }
