@@ -1,41 +1,54 @@
 import java.util.*;
 
 public class Kth_javap_pathfinder {
-    // Fält som tillhör hela klassen, behöver vara 'static' (tillhöra klassen själv)
+    // Fält som tillhör hela klassen, behöver vara 'static' (tillhöra klassen själv), går snabbare, slipper definera flera gånger
     static char[][] map;
     static int M;   
     static int N;
-    static boolean[][] visited;
+    static boolean[][] visited; // BitSet tydligen snabbare och bättre än boolean?
 
     public static void main(String[] args) {
-        try (Scanner scanObj = new Scanner(System.in)) {
-            M = scanObj.nextInt();
-            N = scanObj.nextInt();
-            scanObj.nextLine();
+        Scanner scanObj = new Scanner(System.in); 
+        M = scanObj.nextInt();
+        N = scanObj.nextInt();
+        scanObj.nextLine();
 
-            map = new char[M][N];
-            visited = new boolean[M][N];
+        map = new char[M][N];
+        //visited = new boolean[M][N];
+        visited = new boolean[M][N];
 
-            for (int i = 0; i < M; i++) {
-                String line = scanObj.nextLine();
-                for (int j = 0; j < N; j++) {
-                    map[i][j] = line.charAt(j);
-                }
+        for (int i = 0; i < M; i++) {
+            String line = scanObj.nextLine();
+            for (int j = 0; j < N; j++) {
+                map[i][j] = line.charAt(j);
             }
         }
+        
         String result = hittaStigar(map, M, N);
         System.out.println(result);
     }
 
     private static String hittaStigar(char[][] map, int m, int n) {
         Set<Character> characters = new HashSet<>();
-        // boolean[][] visited = new boolean[m][n];
-
+        Set<Character> bottomRow = new HashSet<>();   // sista raden för att göra en första kontroll
+        // Deque<int[]> stack = new ArrayDeque<>();
         for (int j = 0; j < n; j++) {
-            char ch = map[0][j];    // karaktär på första raden, kolumn j
-            if (dfs(map, m, n, visited, 0, j, ch)) {
-                characters.add(ch);
+            for (int i = 0; i < m; i++) {
+                if (i == m - 1) {
+                    bottomRow.add(map[i][j]);
                 }
+            }
+            char ch = map[0][j];    // karaktär på första raden, kolumn j
+            Deque<int[]> stack = new ArrayDeque<>();
+            
+            if (bottomRow.contains(ch) &&   // gör en liten dummy-koll först om sista raden innehåller karaktären
+                !characters.contains(ch) &&
+                dfs(map, m, n, 0, j, ch, stack)){
+                    characters.add(ch); 
+            }
+            /* if (dfs(map, m, n, 0, j, ch, stack)) {
+                characters.add(ch);
+            }*/
                 
         }
 
@@ -50,11 +63,12 @@ public class Kth_javap_pathfinder {
                 paths.append(c);
             }
             return paths.toString();
+            // return sortedChars.toString();
         }
     }
 
-    private static boolean dfs(char[][] map, int m, int n, boolean[][] visited, int startRow, int startCol, char targetChar) {
-        Deque<int[]> stack = new ArrayDeque<>();
+    private static boolean dfs(char[][] map, int m, int n, int startRow, int startCol, char targetChar, Deque<int[]> stack) {
+        //Deque<int[]> stack = new ArrayDeque<>();
         stack.push(new int[]{startRow, startCol});
     
         while (!stack.isEmpty()) {
