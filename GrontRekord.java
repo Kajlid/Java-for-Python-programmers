@@ -1,12 +1,15 @@
 class GrontRekord implements Comparable<GrontRekord> {
     // privata fält som tillhör klassen.
-    private String vegetableType;
-    private String country;
+    // private String vegetableType;
+    public String vegetableType;
+    public String country;
+    // private String country;
     private int size;
     private String unit;
 
     public GrontRekord(String vegetableType, String country, int size, String unit) {
         // konstruktor till klassen
+        // setters
         this.vegetableType = vegetableType;
         this.country = country;
         this.size = size;
@@ -21,12 +24,8 @@ class GrontRekord implements Comparable<GrontRekord> {
             return this.vegetableType.compareTo(other.vegetableType);
         }
         // om samma grönsakstyp, kolla på storlek (störst till minst, minskande order)
-        /*if (Integer.compare(other.size, this.size) != 0) {
+        if (Integer.compare(other.size, this.size) != 0) {
             return Integer.compare(other.size, this.size);
-        }*/
-
-        if (this.size == other.size) {
-            return 0;
         }
 
         // om samma storlek, jämför land
@@ -40,9 +39,9 @@ class GrontRekord implements Comparable<GrontRekord> {
 
         if (this.size < other.size) {
             // om this.size är mindre, ta bort den
-            return -1;
-        } else if (this.size > other.size) {
             return 1;
+        } else if (this.size > other.size) {
+            return -1;
         } else {
             return 0;
         }

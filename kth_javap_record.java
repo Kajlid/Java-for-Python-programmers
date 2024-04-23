@@ -1,13 +1,21 @@
 import java.util.*;
 
+// OBS, kommer behöva byta ut scanner här
+// BufferedReader
+
+// array av RekordData
+// alla giltliga datarader ska läggas i denna array
+// Arrays.sort  - även Collections.sort borde funka
 public class kth_javap_record {
+    // private String[] RekordData;   
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<GrontRekord> records = new ArrayList<>();
 
         // format: <Grönsakstyp (ett ord)> <Namn på landet (ett eller flera ord)> <Storlek (heltal)> <enhet (ett ord)>
-        System.out.println("Skriv in listan med grönsaker:");
-        System.out.println("Skriv 'klar' för att avsluta.");
+        // System.out.println("Skriv in listan med grönsaker:");
+        // System.out.println("Skriv 'klar' för att avsluta.");
 
         while (true) {
             String input = scanner.nextLine();
@@ -26,18 +34,49 @@ public class kth_javap_record {
             int size = Integer.parseInt(parts[parts.length - 2]);
             String unit = parts[parts.length - 1];
             records.add(new GrontRekord(type, country, size, unit));
+            // records.add("\n");
         }
 
+        scanner.close();
 
         Collections.sort(records);
 
         // records.stream().forEach(System.out::print);
 
-        for (GrontRekord record : records) {
-            System.out.println(record);
+        List<GrontRekord> RekordData = removeDuplicates(records);
+        // System.out.println(RekordData);
+        StringBuilder utdata = new StringBuilder();
+        for (GrontRekord record : RekordData) {
+            // System.out.println(record);
+            utdata.append(record).append("\n");
         }
 
-        scanner.close();
+        System.out.println(utdata.toString());
+
+        // System.out.println(records);
+
+        /*for (GrontRekord record : records) {
+            System.out.println(record);
+        }*/
+
+    }
+
+    private static List<GrontRekord> removeDuplicates(List<GrontRekord> records) {
+        List<GrontRekord> RekordData = new ArrayList<>();;  // output, den sorterade listan
+        Set<String> combinationSet = new HashSet<>(); // för att hålla reda på kombinationen land och grönsak
+        for (GrontRekord record : records) {
+            // nyckel för varje kombination av typ och land
+            String kombination = record.vegetableType + "-" + record.country;
+
+            // om kombinations-"nyckeln" inte redan finns
+            if (!combinationSet.contains(kombination)) {
+                combinationSet.add(kombination);
+                RekordData.add(record);
+            }
+            
+        }
+
+        return RekordData;
     }
 
 }
