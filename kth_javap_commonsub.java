@@ -1,38 +1,47 @@
 import java.util.Scanner;
-import java.util.HashMap;    // HashMap is faster than TreeMap, average time complexity of O(1), constant (behövs för Kattis)
+import java.util.HashMap;    // HashMap har konstant tidskomplexitet (O(1)), är snabbare än TreeMap, i alla fall för små inputs (TreeMap har O(log(n)))
 import java.io.IOException;
 import java.util.Map;
 
+/*
+ Labb 2:
+    Hitta den oftast förekommande delsträngen i en längre sträng.
+    Om flera delsträngar av den angivna längden förekommer flest gånger, ange den delsträng som kommer först alfabetiskt.
+
+    Indata: Ett heltal n (num), på en egen rad, följt av en icke radbryten sträng S.
+
+    Utdata: Den vanligaste förekommande delsträngen d av längd n.
+
+ */
+
 public class kth_javap_commonsub {
-    public static void main (String[] args) throws IOException {
+    public static void main (String[] args) {
 
         Scanner scanObj = new Scanner(System.in);   
 
-        System.out.println("Skriv en siffra:");
-        int num = Integer.parseInt(scanObj.nextLine().trim());   // assuming user input to be a string can provide better usability
+        // Skriv en siffra:
+        int num = Integer.parseInt(scanObj.nextLine().trim());   // Även scanObj.nextInt hade funkat för att läsa in som integer.
 
-        System.out.println("Skriv en sträng:");
+        // Skriv en sträng:
         String S = scanObj.nextLine().trim();
 
-        System.out.println(String.format("Vanligaste delsträngen på längd %d är %s",num, commonSub(num, S)));
+        System.out.println(commonSub(num, S));
 
-        scanObj.close();  // good to close scanner to avoid memory leak
+        scanObj.close();  
 
     }
 
     public static String commonSub(Integer num, String s){
-
-
-        Map<String, Integer> storeSubStrings = new HashMap<>();
-
+        Map<String, Integer> storeSubStrings = new HashMap<>();     // nyckel kommer vara String, value kommer vara Integer (måste skrivas som objekt-typer)
+        
         for (int i = 0; i <= s.length()-num; i++) {
             String d = s.substring(i, i+num);
-            int numberOfSubstring = storeSubStrings.getOrDefault(d, 0);  // default is zero to avoid null values
-            storeSubStrings.put(d, numberOfSubstring + 1);   // increase the number with 1 every time we have one.
+            int numberOfSubstring = storeSubStrings.getOrDefault(d, 0);  // default är 0 för att undvika null values (borde kanske egentligen vara 1 i det här fallet)
+            storeSubStrings.put(d, numberOfSubstring + 1);   // öka numret med 1 för varje iteration
 
         }
 
-        Map.Entry<String, Integer> commonEntry = null;   // this value will store the most common sub string entry tuple.
+        Map.Entry<String, Integer> commonEntry = null;   // Key-value par vars key kommer lagra vanligaste delsträngen (d). 
 
         for (Map.Entry<String, Integer> entry: storeSubStrings.entrySet()){
             // if commonEntry still is null, or if it is smaller than current val or if 2 have same values (antal), but alphabetical order
@@ -41,8 +50,7 @@ public class kth_javap_commonsub {
             }
         }
 
-        return (commonEntry != null)? commonEntry.getKey(): "";    // return only substring (key)
-
+        return (commonEntry != null)? commonEntry.getKey(): "";    // returnerna vanligaste delsträngen eller tom sträng.
 
     }
 
