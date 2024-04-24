@@ -44,7 +44,6 @@ public class kth_javap_commonsub {
         Map.Entry<String, Integer> commonEntry = null;   // Key-value par vars key kommer lagra vanligaste delsträngen (d). 
 
         for (Map.Entry<String, Integer> entry: storeSubStrings.entrySet()){
-            // if commonEntry still is null, or if it is smaller than current val or if 2 have same values (antal), but alphabetical order
             if (commonEntry == null || entry.getValue() > commonEntry.getValue() || (entry.getValue().equals(commonEntry.getValue()) && entry.getKey().compareTo(commonEntry.getKey()) < 0)){
                 commonEntry = entry;
             }
