@@ -1,7 +1,7 @@
+import java.io.*;
 import java.util.*;
 
-// OBS, kommer behöva byta ut scanner här
-// BufferedReader
+// Glöm inte att skriva klar :)
 
 // array av RekordData
 // alla giltliga datarader ska läggas i denna array
@@ -9,8 +9,9 @@ import java.util.*;
 public class kth_javap_record {
     // private String[] RekordData;   
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        // Scanner scanner = new Scanner(System.in);
         List<GrontRekord> records = new ArrayList<>();
 
         // format: <Grönsakstyp (ett ord)> <Namn på landet (ett eller flera ord)> <Storlek (heltal)> <enhet (ett ord)>
@@ -18,8 +19,9 @@ public class kth_javap_record {
         // System.out.println("Skriv 'klar' för att avsluta.");
 
         while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("klar")) {
+            // String input = scanner.nextLine();   // NoSuchElementException
+            String input = reader.readLine();
+            if (input == null || input.equals("klar")) {
                 break;
             }
             String[] parts = input.split(" ");
@@ -29,7 +31,7 @@ public class kth_javap_record {
             for (int i = 1; i < parts.length - 2; i++) {
                 country += parts[i] + " ";
             }
-            country = country.trim();   // Rensa på whitespace
+            country = country.trim();   // Rensa på omringande whitespace
             // eftersom länder kan ha mellanslag emellan
             int size = Integer.parseInt(parts[parts.length - 2]);
             String unit = parts[parts.length - 1];
@@ -37,7 +39,7 @@ public class kth_javap_record {
             // records.add("\n");
         }
 
-        scanner.close();
+        // scanner.close();
 
         Collections.sort(records);
 
@@ -52,6 +54,8 @@ public class kth_javap_record {
         }
 
         System.out.println(utdata.toString());
+
+        reader.close();   // stäng för att inte läcka resurser.
 
         // System.out.println(records);
 
