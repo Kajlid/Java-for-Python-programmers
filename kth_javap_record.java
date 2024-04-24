@@ -1,25 +1,18 @@
 import java.io.*;
 import java.util.*;
 
-// Glöm inte att skriva klar :)
+// Glöm inte att skriva klar!!!
 
-// array av RekordData
-// alla giltliga datarader ska läggas i denna array
-// Arrays.sort  - även Collections.sort borde funka
-public class kth_javap_record {
-    // private String[] RekordData;   
 
+public class kth_javap_record {   
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        // Scanner scanner = new Scanner(System.in);
+        // Måste kunna hantera IOException för BufferedReader.
         List<GrontRekord> records = new ArrayList<>();
 
         // format: <Grönsakstyp (ett ord)> <Namn på landet (ett eller flera ord)> <Storlek (heltal)> <enhet (ett ord)>
-        // System.out.println("Skriv in listan med grönsaker:");
-        // System.out.println("Skriv 'klar' för att avsluta.");
 
         while (true) {
-            // String input = scanner.nextLine();   // NoSuchElementException
             String input = reader.readLine();
             if (input == null || input.equals("klar")) {
                 break;
@@ -32,36 +25,23 @@ public class kth_javap_record {
                 country += parts[i] + " ";
             }
             country = country.trim();   // Rensa på omringande whitespace
-            // eftersom länder kan ha mellanslag emellan
             int size = Integer.parseInt(parts[parts.length - 2]);
             String unit = parts[parts.length - 1];
             records.add(new GrontRekord(type, country, size, unit));
-            // records.add("\n");
         }
-
-        // scanner.close();
 
         Collections.sort(records);
 
-        // records.stream().forEach(System.out::print);
-
         List<GrontRekord> RekordData = removeDuplicates(records);
-        // System.out.println(RekordData);
+      
         StringBuilder utdata = new StringBuilder();
         for (GrontRekord record : RekordData) {
-            // System.out.println(record);
             utdata.append(record).append("\n");
         }
 
         System.out.println(utdata.toString());
 
         reader.close();   // stäng för att inte läcka resurser.
-
-        // System.out.println(records);
-
-        /*for (GrontRekord record : records) {
-            System.out.println(record);
-        }*/
 
     }
 
