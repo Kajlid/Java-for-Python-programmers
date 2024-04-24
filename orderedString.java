@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+// OBS Scanner är långsamt och kan orsaka Runtime Error i Kattis. Byt ut mot BufferedReader vid problem.
 /*
  Labb 1:
     Hitta längsta sorterade delsträngen i en längre sträng.
