@@ -6,8 +6,10 @@ import java.util.*;
 
 public class kth_javap_record {   
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         // Måste kunna hantera IOException för BufferedReader.
+        // InputStreamReader konverterar input stream av bytes till characters för BufferedReader.
+        // BufferedReader snabbare än scanner, parsar inte datan utan läser endast characters.
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         List<GrontRekord> records = new ArrayList<>();
 
         // format: <Grönsakstyp (ett ord)> <Namn på landet (ett eller flera ord)> <Storlek (heltal)> <enhet (ett ord)>
