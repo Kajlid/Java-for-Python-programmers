@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JavapRecordsFromFile",
+            "request": "launch",
+            "mainClass": "JavapRecordsFromFile",
+            "projectName": "Java-for-Python-programmers_5b1ca919"
+        },
+        {
+            "type": "java",
             "name": "Kth_javap_pathfinder",
             "request": "launch",
             "mainClass": "Kth_javap_pathfinder",
