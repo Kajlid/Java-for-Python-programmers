@@ -5,9 +5,10 @@ public class JavapRecordsFromFile {
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("vegetables.txt"));
         List<GrontRekord> records = new ArrayList<>();
-
+        try {
         String currentLine;
-        while ((currentLine = reader.readLine()) != null) {
+        while ((currentLine = reader.readLine()) != null) {    
+            // For every line in file.
             String[] parts = currentLine.split(" ");
             String type = parts[0];
             String country = "";
@@ -32,8 +33,12 @@ public class JavapRecordsFromFile {
 
         System.out.println(utdata.toString());
 
-        reader.close();
-
+        }
+        
+        finally {
+            reader.close();
+        }
+        
     }
 
     private static List<GrontRekord> removeDuplicates(List<GrontRekord> records) {
