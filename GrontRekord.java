@@ -17,7 +17,7 @@ class GrontRekord implements Comparable<GrontRekord> {
     @Override
     public int compareTo(GrontRekord other) {
         // Sortera grönsaker alfabetiskt
-        // kolla först om typerna är samma
+        // kolla först om typerna är samma, alfabetisk ordning
         if (this.vegetableType.compareTo(other.vegetableType) != 0) {
             return this.vegetableType.compareTo(other.vegetableType);
         }
