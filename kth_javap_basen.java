@@ -36,8 +36,7 @@ public class kth_javap_basen {
     private static String javap_basen(Integer n, Integer m, BigInteger a, BigInteger b) {
         BigInteger c = a.multiply(b);
 
-        return c.toString(m).toUpperCase();
-
+        return c.toString(m);
 
     }
     
