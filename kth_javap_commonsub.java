@@ -32,11 +32,11 @@ public class kth_javap_commonsub {
     }
 
     public static String commonSub(Integer num, String s){
-        Map<String, Integer> storeSubStrings = new HashMap<>();     // nyckel kommer vara String, value kommer vara Integer (måste skrivas som objekt-typer)
+        Map<String, Integer> storeSubStrings = new HashMap<>();     // nyckel:String, value:Integer (måste skrivas som objekt-typer)
         
         for (int i = 0; i <= s.length()-num; i++) {
-            String d = s.substring(i, i+num);
-            int numberOfSubstring = storeSubStrings.getOrDefault(d, 0);  // default är 0 för att undvika null values (borde kanske egentligen vara 1 i det här fallet)
+            String d = s.substring(i, i+num);    // slutindex är s.length()
+            int numberOfSubstring = storeSubStrings.getOrDefault(d, 0);  // 0 ifall ej förekommit
             storeSubStrings.put(d, numberOfSubstring + 1);   // öka numret med 1 för varje iteration
 
         }
